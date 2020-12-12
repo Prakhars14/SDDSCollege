@@ -13,6 +13,7 @@ mongoose.connect(process.env.MONGO_URI,
 app.use(cors());
 app.use(express.json());
 app.use("/api/admin", require('./routes/admin'));
+app.use("/api/upload", require('./routes/upload'));
 app.use('/api/faculty', require('./routes/faculty'));
 app.use('/api/home',require("./routes/home"));
 app.use('/api/academics',require("./routes/academics"));

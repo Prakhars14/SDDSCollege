@@ -22,7 +22,7 @@ const Faculty = () => {
                 {faculty&&faculty.map(prof=>(
                 <Row className="mt-2 mb-2">
                     <Col lg={3}>
-                        <img src={prof.imageURL} width="180" height="180" class="d-inline-block align-top" alt=""/>
+                        <img src={`https://sddscollege.s3.ap-south-1.amazonaws.com/${prof.imageURL}`} width="180" height="180" class="d-inline-block align-top" alt=""/>
                     </Col>
                     <Col lg={9}>
                         <h5> {prof.name}</h5>

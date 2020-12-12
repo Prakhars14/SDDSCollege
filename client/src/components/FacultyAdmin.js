@@ -9,13 +9,25 @@ const FacultyAdmin = () => {
 
     const submitHandler=async(e)=>{
         e.preventDefault();
-        const data={name,qual,image};
+        const uploadConfig=await axios.get('/api/upload');
+        console.log(uploadConfig);
+        delete axios.defaults.headers.common['Authorization']
+        const uploaded=await axios.put(uploadConfig.data.url, image);
+
+        console.log("hoja bhai",uploaded)
+
+
+        const data={name,qual,image:uploadConfig.data.key};
         setAuthToken(localStorage.jwtToken)
         const res=await axios.post("/api/faculty",data);
         console.log(res);
         if(res.status==200){
             setName('');setImage('');setQual('');
         }
+    }
+
+    const imageHandler=(e)=>{
+        setImage(e.target.files[0]);
     }
 
     return (
@@ -37,8 +49,8 @@ const FacultyAdmin = () => {
                         <input type="text" value={qual} onChange={(e)=>setQual(e.target.value)} placeholder="Qualification" className="form-control"/>
                         </div>
                         <div class="form-group">
-                        <label>Faculty Photo URL</label>
-                        <input type="text" value={image} onChange={(e)=>setImage(e.target.value)} placeholder="Photo URL" className="form-control"/>
+                        <label>Faculty Photo</label>
+                        <input type="file" onChange={imageHandler} className="form-control"/>
                         </div>
                         <button type="submit" class="btn btn-primary float-right" onClick={submitHandler}>Submit</button>
                         </form>
